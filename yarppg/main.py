@@ -18,7 +18,7 @@ def main():
     parser = get_mainparser()
     args = parser.parse_args(sys.argv[1:])
     app = QApplication(sys.argv)
-    print("不回家", sys.argv[1:])
+    print("回家", sys.argv[1:])
     print("我你", args)
     roi_detector = get_detector(args)
 

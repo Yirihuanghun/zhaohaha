@@ -57,7 +57,9 @@ class FilteredProcessor(Processor):
         self._processor = processor
         self._filtfun = filtfun
         self.name = "Filtered" + str(processor)
+        print("gh", processor)
 
     def calculate(self, roi):
         v = self._filtfun(self._processor.calculate(roi))
+        print("ghjfg", v)
         return v

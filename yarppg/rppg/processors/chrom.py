@@ -19,11 +19,10 @@ from yarppg.rppg.filters import DigitalFilter, get_butterworth_filter
 #     xf = scipy.signal.filtfilt(b, a, xs)
 #     return xf
 def bdpass(xs, cutoff):
-    fs = 10;
+    fs = 30;
     lfilter = get_butterworth_filter(fs, cutoff, 'bandpass')
     xfilt = [lfilter(x) for x in xs]
     return xfilt
-
 
 class ChromProcessor(Processor):
 
@@ -63,21 +62,21 @@ class ChromProcessor(Processor):
 
             v = self.xmean / (self.ymean or 1) - 1
         elif self.method == "XsminaYs":
-            Fstop1 = 40/60
-            Fstop2 = 240 / 60
-            cutoff = [Fstop1, Fstop2]
-            self._rs = bdpass(self._rs, cutoff)
-            self._gs = bdpass(self._gs, cutoff)
-            self._bs = bdpass(self._bs, cutoff)
-            print("ghfgfdgfd", self._rs)
+            # Fstop1 = 40/60
+            # Fstop2 = 240 / 60
+            # cutoff = [Fstop1, Fstop2]
+            # self._rs = bdpass(self._rs, cutoff)
+            # self._gs = bdpass(self._gs, cutoff)
+            # self._bs = bdpass(self._bs, cutoff)
+            # # print("ghfgfdgfd", self._rs)
             self.rmean = self.moving_average_update(self.rmean, self._rs, self.winsize)
             self.gmean = self.moving_average_update(self.gmean, self._gs, self.winsize)
             self.bmean = self.moving_average_update(self.bmean, self._bs, self.winsize)
-            print("和会", self.rmean)
+            # print("和会", self.rmean)
             rn = r / (self.rmean or 1.)
             gn = g / (self.gmean or 1.)
             bn = b / (self.bmean or 1.)
-            print("hggh", rn)
+            # print("hggh", rn)
             self._xs.append(3 * rn - 2 * gn)
             self._ys.append(1.5 * rn + gn - 1.5 * bn)
             # k = [0.7682, 0.5121, 0.3841]
@@ -87,11 +86,11 @@ class ChromProcessor(Processor):
             # self._xs.append((rs-gs)/(k[0]-k[1]))
             # self._ys.append((rs+gs-2*bs)/(k[0]+k[1]-k[0]))
 
-
             d1 = np.std(self._xs)
             d2 = np.std(self._ys)
             a = d1/d2
             v = self._xs[-1] - a*self._ys[-1]
+            # v = 3*(1-a/2)*self._rf[-1] - 2*(1+a/2)*self._gf[-1] + 3/2*a*self._bf[-1]
         return v
 
     def __str__(self):
