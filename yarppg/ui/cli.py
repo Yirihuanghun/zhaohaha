@@ -17,10 +17,10 @@ def get_mainparser():
                               "LiCvpr currently only returns mean green value"))
     parser.add_argument("--winsize", default=32, type=int,
                         help="Window sized used in some processors")
-    parser.add_argument("--bandpass", type=str, default="0.67,4",
-                        help="bandpass frequencies for processor output")
-    # parser.add_argument("--bandpass", type=str, default="0.5,2",
+    # parser.add_argument("--bandpass", type=str, default="0.67,4",
     #                     help="bandpass frequencies for processor output")
+    parser.add_argument("--bandpass", type=str, default="0.5,2",
+                        help="bandpass frequencies for processor output")
     parser.add_argument("--blobsize", default=150, type=int,
                         help="quadratic blob size of DNN Face Detector")
     parser.add_argument("--draw-facemark", action="store_true",

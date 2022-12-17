@@ -62,13 +62,13 @@ class ChromProcessor(Processor):
 
             v = self.xmean / (self.ymean or 1) - 1
         elif self.method == "XsminaYs":
-            # Fstop1 = 40/60
-            # Fstop2 = 240 / 60
-            # cutoff = [Fstop1, Fstop2]
-            # self._rs = bdpass(self._rs, cutoff)
-            # self._gs = bdpass(self._gs, cutoff)
-            # self._bs = bdpass(self._bs, cutoff)
-            # # print("ghfgfdgfd", self._rs)
+            Fstop1 = 40/60
+            Fstop2 = 240 / 60
+            cutoff = [Fstop1, Fstop2]
+            self._rs = bdpass(self._rs, cutoff)
+            self._gs = bdpass(self._gs, cutoff)
+            self._bs = bdpass(self._bs, cutoff)
+            # print("ghfgfdgfd", self._rs)
             self.rmean = self.moving_average_update(self.rmean, self._rs, self.winsize)
             self.gmean = self.moving_average_update(self.gmean, self._gs, self.winsize)
             self.bmean = self.moving_average_update(self.bmean, self._bs, self.winsize)
